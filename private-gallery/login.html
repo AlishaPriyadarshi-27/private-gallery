@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Enter Password</h2>
+
+<input type="password" id="pass">
+<button onclick="check()">Enter</button>
+
+<script>
+function check() {
+  let p = document.getElementById("pass").value;
+
+  if (p === "1234") {
+    localStorage.setItem("auth", "yes");
+    window.location = "gallery.html";
+  } else {
+    alert("Wrong password");
+  }
+}
+</script>
+
+</body>
+</html>

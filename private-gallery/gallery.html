@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>My Private Folder</h2>
+
+<input type="file" id="file">
+<button onclick="upload()">Upload</button>
+
+<div id="gallery"></div>
+
+<script>
+if (localStorage.getItem("auth") !== "yes") {
+  window.location = "login.html";
+}
+
+let gallery = document.getElementById("gallery");
+
+window.onload = function () {
+  let images = JSON.parse(localStorage.getItem("images")) || [];
+
+  images.forEach(src => {
+    let img = document.createElement("img");
+    img.src = src;
+    img.width = 200;
+    gallery.appendChild(img);
+  });
+};
+
+function upload() {
+  let file = document.getElementById("file").files[0];
+  let reader = new FileReader();
+
+  reader.onload = function (e) {
+    let img = document.createElement("img");
+    img.src = e.target.result;
+    img.width = 200;
+    gallery.appendChild(img);
+
+    let images = JSON.parse(localStorage.getItem("images")) || [];
+    images.push(e.target.result);
+    localStorage.setItem("images", JSON.stringify(images));
+  };
+
+  reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
